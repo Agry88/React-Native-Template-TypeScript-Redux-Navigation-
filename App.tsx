@@ -1,22 +1,20 @@
 import { StatusBar } from 'expo-status-bar';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import MainNavigator from './navigator';
+import { configureStore } from "@reduxjs/toolkit";
+import allReducers from "./reducers";
+import { Provider } from "react-redux";
 
-import useCachedResources from './hooks/useCachedResources';
-import useColorScheme from './hooks/useColorScheme';
-import Navigation from './navigation';
 
 export default function App() {
-  const isLoadingComplete = useCachedResources();
-  const colorScheme = useColorScheme();
-
-  if (!isLoadingComplete) {
-    return null;
-  } else {
-    return (
-      <SafeAreaProvider>
-        <Navigation colorScheme={colorScheme} />
+  const store = configureStore({ reducer: allReducers });
+  return (
+    <SafeAreaProvider>
+      <Provider store={store}>
+        <MainNavigator />
         <StatusBar />
-      </SafeAreaProvider>
-    );
-  }
+      </Provider>
+    </SafeAreaProvider>
+  );
 }
+

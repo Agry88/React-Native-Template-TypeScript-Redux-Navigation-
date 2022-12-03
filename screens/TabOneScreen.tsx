@@ -1,15 +1,20 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, View, Text, Button } from 'react-native';
+import { useSelector, useDispatch } from "react-redux";
+import { decrement, increment } from "../actions/Counter";
 
-import EditScreenInfo from '../components/EditScreenInfo';
-import { Text, View } from '../components/Themed';
-import { RootTabScreenProps } from '../types';
-
-export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'>) {
+export default function TabOneScreen() {
+  const dispatch = useDispatch();
+  const counter1 = useSelector((state: any) => state.counter.counter1);
+  const counter2 = useSelector((state: any) => state.counter.counter2);
   return (
     <View style={styles.container}>
+      <Text style={styles.title}>Counter value is : {counter1}</Text>
+      <Text style={styles.title}>Counter value is : {counter2}</Text>
       <Text style={styles.title}>Tab One</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="/screens/TabOneScreen.tsx" />
+      <View style={{ display:"flex" , flexDirection:"row" }}>
+        <Button title='increment' onPress={() => dispatch(increment())} />
+        <Button title='decrement' onPress={() => dispatch(decrement())} />
+      </View>
     </View>
   );
 }

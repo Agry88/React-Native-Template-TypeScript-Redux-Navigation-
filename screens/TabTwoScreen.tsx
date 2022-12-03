@@ -1,14 +1,14 @@
-import { StyleSheet } from 'react-native';
-
-import EditScreenInfo from '../components/EditScreenInfo';
-import { Text, View } from '../components/Themed';
+import { StyleSheet , Text , View } from 'react-native';
+import { useSelector } from "react-redux";
 
 export default function TabTwoScreen() {
+  const counter1 = useSelector((state: any) => state.counter.counter1);
+  const counter2 = useSelector((state: any) => state.counter.counter2);
   return (
     <View style={styles.container}>
+      <Text style={styles.title}>Counter value is : {counter1}</Text>
+      <Text style={styles.title}>Counter value is : {counter2}</Text>
       <Text style={styles.title}>Tab Two</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="/screens/TabTwoScreen.tsx" />
     </View>
   );
 }
